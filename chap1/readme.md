@@ -308,6 +308,64 @@ const user = {
 console.log(user.name); // Atta
 ```
 ### Promise, Async, Await
+### Promise
+Promise là cú pháp của ES6 để giúp tránh hiện tượng callback hell
+
+Cú pháp
+
+```
+let promise = new Promise(function(resolve, reject) {
+  // Code here
+});
+```
+Trong đó:
+Hàm được truyền vào new Promise gọi là executor.
+
+Ban đầu, Promise có state là pending và kết quả value là undefined
+
+Khi executor kết thúc công việc, nó sẽ gọi đến 1 trong 2 hàm được truyền vào
+
+- resolve(value): để xác định rằng công việc đã thực hiện thành công => state chuyển thành fulfilled => kết quả là value
+- reject(error): để xác định rằng đã có lỗi xảy ra => state chuyển thành rejected => kết quả là error
+
+Vậy Promise có 3 trạng thái
+- Pending: promise đang thực hiện chưa xong
+- Full filled: trạng thái đã thực hiện xong, kết quả thành công
+- Rejected: trạng thái đã thực hiện xong, kết quả thất bại
+
+
+Các method của Promise
+
+- then(): Được gọi khi promise thành công, nhận parameter là 1 callback function, trả về dữ liệu của resolve
+
+- catch(): được gọi khi promise thất bại, nhận parameter là 1 callback function, trả về dữ liệu của reject
+
+- finally(): Được gọi khi cả thành công và thất bại -> Promise state : settled
+
+### Async Await
+Cú pháp giúp cho Promise giống với chương trình xử lý đồng bộ
+```
+function resolveAfter2Seconds() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve('resolved');
+    }, 2000);
+  });
+}
+
+async function asyncCall() {
+  console.log('calling');
+  const result = await resolveAfter2Seconds();
+  console.log(result);
+  // expected output: "resolved"
+}
+
+asyncCall();
+
+```
+Chú ý
+- Giá trị trả về của một hàm async là một promise
+- Await chỉ lên dùng với một promise
 
 
 
