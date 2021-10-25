@@ -29,6 +29,8 @@ JS ban đầu chỉ dùng để tương tác đơn giản trên trình duyệt, 
 - Mobile: React Native
 - Desktop: Electron
 
+https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/#basic-javascript
+
 https://www.w3schools.com/js/
 ### JS data types
 Trong JS có 6 kiểu dữ liệu cơ bản: Number, Boolean, String, Null, Undefined, Object
