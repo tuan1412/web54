@@ -90,7 +90,6 @@ Array là tập hợp các phần tử. JS cung cấp rất nhiều phương th�
 
 ![method](static/array.jpeg)
 
-ấkfjsalfjlalkfsjálfkjsal
 ### Callback
 Callback là kỹ thuật truyền 1 function vào 1 function khác làm tham số
 
