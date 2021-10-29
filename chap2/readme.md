@@ -46,9 +46,7 @@ NodeJS và V8 Chrome trên browser là hai cái hoàn toàn độc lập. Một 
 
 ### Kiến trúc của NodeJS
 ![nodejs](static/nodejs.png)
-
-- Node.js Application chính là đoạn code lập trình viên viết
-- Node.js API 
+Link tham khảo [kiến trúc](https://chathuranga94.medium.com/nodejs-architecture-concurrency-model-f71da5f53d1d)
 ## Event loop
 Event loop (vòng lặp sự kiện) là cơ chế lắng nghe các sự kiện từ stack và event queue để xử lý giúp JS có thể xử lý nhiều tác vụ cùng lúc
 Để hiểu rõ hơn, có thể xem ví dụ trong link sau:
