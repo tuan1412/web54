@@ -152,9 +152,8 @@ Dự đoán kết quả in ra của 2 code sau
       console.log(i)
     }
   }
-  array[0]();
-  array[1]();
-  array[2]();
+  arrays[0]();
+  arrays[1]();
 ```
 ```
   var arrays = [];
@@ -163,9 +162,8 @@ Dự đoán kết quả in ra của 2 code sau
       console.log(i)
     }
   }
-  array[0]();
-  array[1]();
-  array[2]();
+  arrays[0]();
+  arrays[1]();
 ```
 
 ### Template String
