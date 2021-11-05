@@ -116,6 +116,7 @@ app.delete('/posts/:deletePostId', async (req, res) => {
     data: deleteStatus
   })
 });
+// gọi tới MongoDB Server
 
 
 // rest api chỉ là conversation đặt tên
