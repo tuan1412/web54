@@ -1,11 +1,27 @@
 const express = require('express'); // lấy module bên thứ 3
 const postCRUD = require('./postCRUD');
-
+const cors = require('cors');
 const app = express();
 
+app.use(cors())
 // config express đọc được input người dùng dạng json
 // ko có dòng này req.body = undefined
 app.use(express.json());
+
+// config việc truyền file tĩnh
+app.use(express.static('static'))
+
+// app.use(express.urlencoded(true));
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
+})
+// app.get('/app.js', (req, res) => {
+//   res.sendFile(__dirname + '/public/app.js');
+// })
+
+// app.get('/style.css', (req, res) => {
+//   res.sendFile(__dirname + '/public/style.css');
+// })
 
 // lấy tất cả bài posts
 app.get('/get-all-posts', async (req, res) => {
@@ -81,6 +97,7 @@ app.get('/update-post', async (req, res) => {
 
 app.put('/posts/:postId', async (req, res) => {
   // input
+  // req.params = { postId: 1 }
   const { postId } = req.params;
   const dataUpdate = req.body;
   // process
@@ -89,6 +106,7 @@ app.put('/posts/:postId', async (req, res) => {
   res.send({
     data: updatePost
   })
+  // về client => json
 });
 
 app.delete('/posts/:deletePostId', async (req, res) => {
