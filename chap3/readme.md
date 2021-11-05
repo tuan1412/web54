@@ -1,3 +1,6 @@
+# Buổi 3
+- Làm quen với ExpressJS
+- Làm quen với REST API
 ## Làm quen với Express JS
 [ExpressJS](https://expressjs.com) là một framework của NodeJS để làm web. Ngoài ExpressJS, còn rất nhiều web framework khác như Koa, NestJS, Fastify
 
