@@ -8,7 +8,6 @@ Các vấn đề khi sử dụng file
 - Không thể hiện được mối liên hệ giữa các đối tượng
 
 => Cần một cơ chế để hạn chế các điều trên => Cơ sở dữ liệu
-
 ### Giới thiệu MongoDB
 MongoDB là một hệ quản trị cơ sở dữ liệu không quan hệ (NoSQL)
 
@@ -20,6 +19,7 @@ Trong thực tế, tuỳ phức tạp của dự án, Server cài MongoDB và Se
 
 Một số khái niệm trong MongoDB
 - Document: Cấu trúc tương tự như JSON, tương đương với một object trong JS
+- Schema: Định nghĩa cấu trúc dữ liệu của Document (gồm các field là gì, type of field là gì)
 - Collection: Tập hợp các document cùng ngữ nghĩa ví dụ Posts, Comments, Users, tương đương với một array trong JS
 - Database: Tập hợp các collection trong một dự án
 
@@ -105,3 +105,5 @@ Controller: Lấy dữ liệu của client, chọn các service xử lý nghiệ
 Service: Xử lý nghiệp vụ
 
 Model: Kết nối và thao tác cơ sở dữ liệu
+
+Lưu ý: Layer trên sẽ gọi layer dưới hoặc các layer cùng cấp (gọi sang các module khác)
