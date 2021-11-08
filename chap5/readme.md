@@ -87,3 +87,46 @@ Ví dụ: TagPost gồm { tagId, postId }
 Đơn giản và ít gặp, thường dùng khi muốn tách một document có schema quá to. Ví dụ profile của User
 
 Khi này ta có thể để Id Ref ở một trong hai hoặc cả hai trên schema
+
+Ngược lại
+user - post
+1 user có thể tạo nhiều bài post
+1 post có thể được tạo bởi 1 user
+
+post - comment: 1 - n
+1 post chứa nhiều comment
+1 comment nằm trong 1 post
+
+PostSchema
+comments: [CommentModel] => populate của mongoose
+
+Create Comment => Push vào mảng
+Xoá Comment => Tìm phần tử trong mảng xoá đi
+
+CommentSchema: tạo doc ở đây, push doc vào PostSchema
+
+Comment => Id => ref đến Post
+
+Post - Tag
+1 post có thể thêm được nhiều tag
+1 tag có thể nằm trong nhiều post
+=> Quan hệ nhiều nhiều
+C1: Post
+tags [tag1, tag2, tag3]
+Tag
+posts: [post1, post2, post3, ]
+
+C2: PostTag
+{
+  tagId: => ref Tag
+  postId: => ref Post
+}
+// tìm bài post theo tag. PostTag => find theo tagId => list PostId => tìm được list Post
+
+Quan hệ 1 - 1
+1 User có 1 Profile (fullname, avatar, hobby)
+1 profile thì thuộc user
+
+// c1: (fullname, avatar, hobby => UserModel
+// c2 ProfileModel userId ref User
+      User có profileId ref tới Profile
