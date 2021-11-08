@@ -85,3 +85,5 @@ Ví dụ: TagPost gồm { tagId, postId }
 
 ### Quan hệ 1 - 1 (một - một)
 Đơn giản và ít gặp, thường dùng khi muốn tách một document có schema quá to. Ví dụ profile của User
+
+Khi này ta có thể để Id Ref ở một trong hai hoặc cả hai trên schema
