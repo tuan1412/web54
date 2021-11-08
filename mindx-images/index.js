@@ -1,35 +1,7 @@
-const mongoose = require('mongoose');
 const express = require('express');
-
-const PostSchema = new mongoose.Schema({
-  imageUrl: {
-    type: String,
-    required: true
-  },
-  title: {
-    type: String,
-    required: true
-  },
-  description: String,
-  likeCount: {
-    type: Number,
-    default: 0
-  },
-  createdBy: String,
-}, {
-  timestamps: true
-});
-
-const CommentSchema = new mongoose.Schema({
-  content: String,
-  createdBy: String,
-  // postId tương đương với _id của Post
-  postId: mongoose.Types.ObjectId,
-}, {
-  timestamps: true
-});
-
-const PostModel = mongoose.model('Post', PostSchema)
+const mongoose = require('mongoose');
+const PostRouter = require('./modules/post');
+const CommentRouter = require('./modules/comment');
 
 async function main() {
   await mongoose.connect('mongodb://localhost:27017/mindx-demo')
@@ -39,120 +11,52 @@ async function main() {
 
   app.use(express.json());
 
-  app.get('/api/posts', async (req, res) => {
-    try {
-      const posts = await PostModel.find();
-      res.send({
-        success: 1,
-        data: posts
-      })
-    } catch (err) {
-      res
-        .status(400)
-        .send({
-          success: 0,
-          data: null,
-          message: err.message || 'Something went wrong'
-        })
-    }
-  })
+  app.use('/api/posts', PostRouter);
+  app.use('/api/comments', CommentRouter);
 
-  app.get('/api/posts/:postId', async (req, res) => {
-    try {
-      const { postId } = req.params;
+  // api/comments ...
+  // routing
+  // router: Nhóm tất cả routing cùng có prefix vào nhóm
+  // app.get('/api/posts', async (req, res) => {
+  //   try {
+  //     const posts = await PostModel.find();
+  //     res.send({
+  //       success: 1,
+  //       data: posts
+  //     })
+  //   } catch (err) {
+  //     res
+  //       .status(400)
+  //       .send({
+  //         success: 0,
+  //         data: null,
+  //         message: err.message || 'Something went wrong'
+  //       })
+  //   }
+  // })
 
-      const foundPost = await PostModel.findById(postId);
-      // const foundPost = await PostModel.findOne({ _id: postId });
-      // const foundPost = await PostModel.findOne({ likeCount: 1 });
+  // app.put('/api/posts/:postId/like', (req, res) => {
+  //   // yêu cầu: người dùng gửi lên like => tăng like count trong document
+  //   // $inc trong mongodb
+  // })
 
-      res.send({
-        success: 1,
-        data: foundPost
-      })
-    } catch (err) {
-      res
-        .status(400)
-        .send({
-          success: 0,
-          data: null,
-          message: err.message || 'Something went wrong'
-        })
-    }
-  })
+  // app.delete('/api/posts/:postId', async (req, res) => {
+  //   try {
+  //     const { postId } = req.params;
 
-  app.post('/api/posts', async (req, res) => {
-    try {
-      const newPostData = req.body;
+  //     const deletedPost = await PostModel.findByIdAndDelete(postId);
+  //     res.send({
+  //       success: 1,
+  //       data: deletedPost
+  //     })
+  //   } catch (err) {
+  //     res.status(400).send({ success: 0, data: null, message: err.message || 'Some thing went wrong'})
+  //   }
+  // })
 
-      const newPost = await PostModel.create(newPostData);
+  // app.get('/api/posts/:postId/comments', async (req, res) => {
 
-      res.send({
-        success: 1,
-        data: newPost
-      })
-    } catch (err) {
-      res
-        .status(400)
-        .send({
-          success: 0,
-          data: null,
-          message: err.message || 'Something went wrong'
-        })
-    }
-  })
-
-  app.put('/api/posts/:postId', async (req, res) => {
-    try {
-      const { postId } = req.params;
-
-      const updatePostData = req.body;
-
-      // option { new: true } để kết quả trả về là document đã được update
-      // const updatedPost = 
-      //   await PostModel
-      //     .findByIdAndUpdate(postId, updatePostData, { new: true });
-      
-      const updatedPost = 
-        await PostModel
-          .findOneAndUpdate({ _id: postId }, updatePostData, { new: true });
-
-      res.send({
-        success: 1,
-        data: updatedPost
-      })
-    } catch (err) {
-      res
-        .status(400)
-        .send({
-          success: 0,
-          data: null,
-          message: err.message || 'Something went wrong'
-        })
-    }
-  })
-
-  app.put('/api/posts/:postId/like', (req, res) => {
-    // yêu cầu: người dùng gửi lên like => tăng like count trong document
-    // $inc trong mongodb
-  })
-
-  app.delete('/api/posts/:postId', async (req, res) => {
-    try {
-      const { postId } = req.params;
-
-      const deletedPost = await PostModel.findByIdAndDelete(postId);
-      res.send({
-        success: 1,
-        data: deletedPost
-      })
-    } catch (err) {
-      res.status(400).send({ success: 0, data: null, message: err.message || 'Some thing went wrong'})
-    }
-  })
-
-  app.get('/api/posts/:postId/comments', async (req, res) => {
-
-  })
+  // })
 
 
   app.listen(9000, (err) => {
@@ -163,14 +67,3 @@ async function main() {
 }
 
 main();
-// User Story
-
-// mindx images
-// Là S, có thể V, để làm gì
-// Là khách, có thể xem toàn bộ bài post
-// Là khách có thể đăng kí
-// Là khách có thể đăng nhập
-
-// Là người dùng có thể like
-// là người dùng có thể tạo bài post
-// ...
