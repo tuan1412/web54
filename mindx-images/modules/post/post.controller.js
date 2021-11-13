@@ -1,6 +1,9 @@
 // tập hợp nghiệp vụ
 const PostModel = require('./post');
 const CommentModel = require('../comment/comment');
+const UserModel = require('../auth/user');
+
+const jwt = require('jsonwebtoken');
 
 const getAllPosts = async (req, res) => {
   try {
@@ -39,9 +42,14 @@ const getPost = async (req, res) => {
 
 const createPost = async (req, res) => {
   try {
-    const newPostData = req.body;
+    const { user }  = req;
+    console.log('create post', user)
 
-    const newPost = await PostModel.create(newPostData);
+    const newPostData = req.body; 
+    const newPost = await PostModel.create({
+      ...newPostData,
+      createdBy: user._id
+    });
 
     res.send({
       success: 1,
@@ -59,14 +67,34 @@ const createPost = async (req, res) => {
 const updatePost = async (req, res) => {
   try {
     const { postId } = req.params;
+    const { user }  = req;
+    // thằng user này là thằng gửi yêu cầu update
 
+    // const existedPost = await PostModel.findById(postId);
+
+    // if (!existedPost) {
+    //   throw new Error('Not found post');
+    // }
+
+    // if (String(existedPost.createdBy) !== String(user._id)) {
+    //   throw new Error('Not have permission');
+
+    // }
+
+
+    // username, password để đăng nhập => Check người dùng hay ko
+    // chỉ người tạo bài post đó mới có quyền update bài post
     const updatePostData = req.body;
 
     const updatedPost = await PostModel.findOneAndUpdate(
-      { _id: postId },
+      { _id: postId, createdBy: user._id },
       updatePostData,
       { new: true }
     );
+
+    if (!updatedPost) {
+      throw new Error('Not found post');
+    }
 
     res.send({
       success: 1,
@@ -83,6 +111,25 @@ const updatePost = async (req, res) => {
 
 const deletePost = async (req, res) => {
   try {
+    // const token = req.headers.authorization;
+    // if (!token) {
+    //   throw new Error('Bạn không có xoá tạo bài post');
+    // }
+
+    // const identityData = jwt.verify(token, 'web54');
+
+    // const userId = identityData.userId;
+
+    // // xác thực
+    // const existedUser = await UserModel.findOne({ _id: userId });
+    // console.log(identityData, existedUser);
+
+    // // findDB => tìm ra thông tin user
+    // // phân quyền
+    // if (!existedUser && existedUser.role !== 'admin') {
+    //   throw new Error('Bạn không có xoá tạo bài post');
+    // }
+
     const { postId } = req.params;
 
     const deletedPost = await PostModel.findOneAndDelete(
@@ -107,11 +154,6 @@ const deletePost = async (req, res) => {
 const incLikePost = async (req, res) => {
   try {
     const { postId } = req.params;
-    // lay ra post => 3
-    // Đã có client khác gọi API inc like => 4
-    // +1 => +1 vào giá trị 3
-    // save 4
-    // xử lý tương tranh
 
     const updatedPost = await PostModel.findOneAndUpdate(
       { _id: postId },

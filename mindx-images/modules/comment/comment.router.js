@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const commentController = require('./comment.controller');
-// tập hợp các api có routing là /api/comments
+const isAuth = require('../../common/middlewares/isAuth');
 
 router.get('/', commentController.getAllComments);
+router.post('/', isAuth, commentController.getAllComments);
 
 module.exports = router;
