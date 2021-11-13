@@ -16,7 +16,10 @@ const PostSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  createdBy: String,
+  createdBy: {
+    type: mongoose.Types.ObjectId,
+    required: true
+  },
 }, {
   timestamps: true
 });
