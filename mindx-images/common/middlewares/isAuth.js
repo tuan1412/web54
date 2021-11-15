@@ -1,31 +1,27 @@
 const tokenProvider = require('../tokenProvider');
 const UserModel = require('../../modules/auth/user');
+const HttpError = require('../httpError');
 
 const isAuth = async (req, res, next) => {
   const token = req.headers.authorization;
 
-  try {
-    if (!token) {
-      throw new Error('Not have token')
-    }
-    const identityData = tokenProvider.verify(token);
-
-    if (!identityData.userId) {
-      throw new Error('Invalid token')
-    }
-
-    const existedUser = await UserModel.findById(identityData.userId);
-
-    if (!existedUser) {
-      throw new Error('Not found user')
-    }
-
-    req.user = existedUser;
-    next();
-
-  } catch (err) {
-    res.status(401).send({ success: 0, message: err.message || 'UnAuthorized' })
+  if (!token) {
+    throw new HttpError('Not have token', 401);
   }
-}
+  const identityData = tokenProvider.verify(token);
+
+  if (!identityData.userId) {
+    throw new HttpError('Invalid token', 401);
+  }
+
+  const existedUser = await UserModel.findById(identityData.userId);
+
+  if (!existedUser) {
+    throw new HttpError('Not found user', 401);
+  }
+
+  req.user = existedUser;
+  next();
+};
 
 module.exports = isAuth;
