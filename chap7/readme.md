@@ -1,4 +1,4 @@
-# Buổi 6
+# Buổi 7
 - Error Handling trong Express
 
 # Tại sao cần error handling

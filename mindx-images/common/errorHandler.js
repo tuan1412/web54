@@ -2,6 +2,7 @@
 const errorHandler = (err, req, res, next) => {
   const status = err.status || 500;
 
+  // chỗ này gửi email, gửi telegram
   res.status(status).send({
     success: 0,
     data: null,
