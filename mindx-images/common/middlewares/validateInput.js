@@ -9,7 +9,7 @@ const validateInput = (schema, property) => {
 
     if (valid) { 
       next(); 
-    } else { 
+    } else {
       const { details } = error; 
       const message = details.map(i => i.message).join(',');
       throw new HttpError(message, 422)
