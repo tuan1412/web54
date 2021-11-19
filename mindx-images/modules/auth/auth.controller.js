@@ -6,12 +6,12 @@ const HttpError = require('../../common/httpError');
 const signUp = async (req, res, next) => {
   const { username, password } = req.body;
 
-  if (!username) {
-    throw new HttpError('username không được để trống', 422);
-  }
-  if (password && password.length < 6) {
-    throw new HttpError('password cần ít nhất 6 kí tự', 422); // promise reject => nhảy xuống catch
-  }
+  // if (!username) {
+  //   throw new HttpError('username không được để trống', 422);
+  // }
+  // if (password && password.length < 6) {
+  //   throw new HttpError('password cần ít nhất 6 kí tự', 422); // promise reject => nhảy xuống catch
+  // }
 
   const existedUser = await UserModel.findOne({ username });
 
