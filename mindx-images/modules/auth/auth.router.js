@@ -8,12 +8,12 @@ const validateInput = require('../../common/middlewares/validateInput');
 // req.query
 router.post(
   '/signup',
-  validateInput(authValid.signupSchema, 'body'),
+  // validateInput(authValid.signupSchema, 'body'),
   authController.signUp);
 
 router.post(
   '/login',
-  validateInput(authValid.loginSchema),
+  validateInput(authValid.loginSchema, 'body'),
   authController.login
 );
 

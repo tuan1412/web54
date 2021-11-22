@@ -7,7 +7,7 @@ const signupSchema = Joi.object({
 
 const loginSchema = Joi.object({
   username: Joi.string().required(),
-  password: Joi.string().min(6)
+  password: Joi.string().min(6).required(),
 });
 
 module.exports = {
