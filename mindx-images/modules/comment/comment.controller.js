@@ -3,7 +3,11 @@ const CommentModel = require('./comment');
 
 const getAllComments = async (req, res) => {
   try {
-    const comments = await CommentModel.find();
+    const comments = await 
+      CommentModel.find()
+        .populate({ path: 'postId', select: 'title' })
+        .populate('createdBy', 'username');
+
     res.send({
       success: 1,
       data: comments

@@ -4,11 +4,13 @@ const postValid = require('./post.validation');
 const validateInput = require('../../common/middlewares/validateInput');
 const isAuth = require('../../common/middlewares/isAuth');
 
+// ko define query
+// /posts?key1=value&key2=value
 router.get('/', postController.getAllPosts);
 router.get('/:postId', postController.getPost);
 router.post(
   '/',
-  validateInput(postValid.createPostSchema, 'body'),
+  // validateInput(postValid.createPostSchema, 'body'),
   isAuth,
   postController.createPost
 );

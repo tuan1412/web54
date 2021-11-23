@@ -13,7 +13,7 @@ router.post(
 
 router.post(
   '/login',
-  validateInput(authValid.loginSchema),
+  validateInput(authValid.loginSchema, 'body'),
   authController.login
 );
 
