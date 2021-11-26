@@ -96,7 +96,7 @@ const getAllPosts = async (req, res) => {
         .find(filter)
         .populate('createdBy', '-password -__v') // populate xuôi
         .populate({ // populate ngược => virtual field
-          path: 'comments',
+          path: 'comments', // Comment
           populate: {
             path: 'createdBy',
             select: 'username' // populate multi level
