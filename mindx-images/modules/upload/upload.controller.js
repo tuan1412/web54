@@ -22,6 +22,7 @@ const app = initializeApp(firebaseConfig);
 const firebaseStorage = getStorage(app);
 
 const buildFileName = (originalname) => {
+  // png.png
   const ext = originalname.split('.').pop();
 
   const fileName = originalname.substring(0, originalname.indexOf(ext) - 1);
