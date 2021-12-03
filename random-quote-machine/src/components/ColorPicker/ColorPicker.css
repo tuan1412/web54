@@ -1,0 +1,18 @@
+.ColorPicker {
+  background-color: white;
+  display: inline-flex;
+  padding: 3px;
+}
+
+.ColorPicker .color-item {
+  width: 32px;
+  height: 32px;
+  background-color: cornflowerblue;
+  margin: 4px;
+  cursor: pointer;
+}
+
+.ColorPicker .color-item.active {
+  outline: 2px solid #ccc;
+  transform: scale(1.1);
+}

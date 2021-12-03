@@ -1,0 +1,28 @@
+.QuoteBox {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.QuoteBox .content {
+  font-size: 26px;
+}
+
+.QuoteBox .author {
+  margin-top: 12px;
+  font-size: 14px;
+  text-align: right;
+}
+
+.QuoteBox .newAction .refresh {
+  padding: 6px 8px;
+
+  border: 0;
+  border-radius: 4px;
+
+  color: white;
+  font-size: 18px;
+
+  display: inline-flex;
+  align-items: center;
+}
