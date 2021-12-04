@@ -1,0 +1,21 @@
+
+.App {
+  background-color: cornflowerblue;
+  height: 100vh;
+  transition: all ease .4s;
+}
+.App .Header-box {
+  padding-top: 40px;
+}
+
+.App .ColorPicker-box {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.App .Quote-wrapper {
+  width: 600px;
+  text-align: center;
+  margin: 40px auto;
+}
