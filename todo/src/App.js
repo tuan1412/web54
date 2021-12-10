@@ -3,22 +3,11 @@ import React from 'react';
 import FormAddTask from './component/FormAddTask/FormAddTask';
 import TaskList from './component/TaskList';
 
+import useSyncLocalStorage from './hooks/useSyncLocalStorage';
+
 function App() {
-  const [tasks, setTasks] = React.useState(() => {
-    const storedTasks = localStorage.getItem('tasks');
-
-    if (!storedTasks) {
-      return []
-    }
-
-    return JSON.parse(storedTasks)
-  })
-
-  React.useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  }, [tasks]);
-
-
+  const [tasks, setTasks] = useSyncLocalStorage('todo:tasks', [])
+  
   const handleAddTask = (text) => {
     setTasks(preTasks => [...preTasks, { content: text, isCompleted: false }]);
   }
@@ -27,7 +16,7 @@ function App() {
     (deleteIdx) => {
       setTasks(preTasks => preTasks.filter((_, currentIdx) => currentIdx !== deleteIdx));
     }, 
-  []);
+  [setTasks]);
 
   const title = React.useMemo(() => {
     const unCompletedTasks = tasks.filter(task => !task.isCompleted)

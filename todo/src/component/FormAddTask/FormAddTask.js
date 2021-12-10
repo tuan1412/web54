@@ -1,13 +1,25 @@
 import React from 'react';
+import { useDebounce } from 'use-debounce';
+// import { usePosition } from 'use-position';
+
 import Button from '../Button';
+import useSyncLocalStorage from '../../hooks/useSyncLocalStorage'
 
 function FormAddTask({ handleAddTask }) {
-  const [text, setText] = React.useState('');
-  const inputRef = React.useRef(null);
+  const [text, setText] = useSyncLocalStorage('todo:text', '');
+  const [debounceValue] = useDebounce(text, 1000);
+
+  React.useEffect(() => {
+    // fetch(debounceValue)
+  }, [debounceValue])
+
+  console.log('1', text, debounceValue)
 
   React.useEffect(() => {
     inputRef.current.focus();
   },[]);
+
+  const inputRef = React.useRef(null);
 
   const onAddTask = () => {
     if (text) {
