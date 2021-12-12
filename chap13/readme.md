@@ -1,4 +1,4 @@
-# Buổi 14
+# Buổi 13
 - Function Component
 - React Hook
 
