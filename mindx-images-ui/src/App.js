@@ -1,11 +1,12 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import PostList from "./pages/PostList/PostList";
+import Login from './pages/Login';
+// import PostList from "./pages/PostList/PostList";
 
 function App() {
   return (
     <div className="App">
-      <PostList />
+      <Login />
     </div>
   );
 }

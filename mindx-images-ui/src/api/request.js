@@ -13,6 +13,9 @@ const instance = axios.create({
 // })
 
 // transform mọi response trả về => bỏ qua một lớp data của axios
+
+// fetch res => chính là kết quả trả về
+// axios res.data => chính là kết quả trả về
 instance.interceptors.response.use(res => {
   if (res && res.data) {
     return res.data;
