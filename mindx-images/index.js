@@ -30,6 +30,9 @@ async function main() {
   app.use('/api/auth', AuthRouter);
   app.use('/api/upload', UploadRouter);
 
+  // app.get('/', (req, res) => res.sendFile(a.html))
+  // app.get('/posts', (req, res) => res.sendFile(b.html))
+
   app.use(errorHandler);
 
   app.listen(process.env.PORT || 9000, (err) => {

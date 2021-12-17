@@ -67,7 +67,18 @@ const login = async (req, res) => {
   
 };
 
+const getUserInfo = async (req, res) => {
+  const { user } = req;
+  const userInfo = user ? {
+    username: user.username,
+    _id: user._id
+  } : null;
+
+  res.send({ success: 1, data: userInfo });
+}
+
 module.exports = {
   signUp,
   login,
+  getUserInfo
 };
