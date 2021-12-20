@@ -33,3 +33,8 @@ function App() {
 }
 
 export default App;
+
+// component => CollapseContext collapsed, setCollapsed = true, false
+// header
+// content
+
