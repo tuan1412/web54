@@ -1,53 +1,28 @@
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import PostList from "./pages/PostList";
 import CreatePost from "./pages/CreatePost";
 import PostDetail from "./pages/PostDetail";
-import request from './api/request';
 import { GuestPage, PrivatePage } from './components/RulePage';
-
-export const AuthContext = React.createContext();
+import { fetchUserInfo } from './redux/userSlice';
 
 function App() {
-  const [status, setStatus] = React.useState("idle");
-  const [user, setUser] = React.useState(null);
-
-  const fetchUserInfo = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      setStatus("done");
-      return;
-    }
-
-    try {
-      const res = await request({
-        url: '/auth/me',
-        method: 'GET'
-      });
-      if (res.success) {
-        setUser(res.data);
-        setStatus("done");
-      } else {
-        setStatus("error");
-      }
-    } catch (err) {
-      setStatus("error");
-    }
-  }
+  const status = useSelector(state => state.auth.status);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
-    fetchUserInfo()
-  }, []);
+    dispatch(fetchUserInfo())
+  }, [dispatch]);
 
   if (status === "idle" || status === "loading") return <div>Full page loading...</div>
 
   if (status === "error") return <div>Error</div>
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
       <Routes>
         <Route path="/" element={<PostList />} />
         <Route path="/posts/:postId" element={<PostDetail />} />
@@ -63,7 +38,6 @@ function App() {
       
         <Route path="*" element={<div>404 Page</div>} />
       </Routes>
-    </AuthContext.Provider>
   );
 }
 

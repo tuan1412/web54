@@ -6,13 +6,15 @@ import { useForm, useWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import useAuth from '../../hooks/useAuth';
+import { useDispatch } from 'react-redux';
+import { login } from "../../redux/userSlice";
 
 const schema = yup.object({
   username: yup.string().required("Required"),
   password: yup.string().min(6).required(),
 }).required();
 
-function SubmitButton({ control, errors }) {
+function SubmitButton({ control, errors, status }) {
   const formState = useWatch({ control });
 
   const hasVal = !Object.keys(formState).some(key => !formState[key]);
@@ -21,7 +23,7 @@ function SubmitButton({ control, errors }) {
   
   return (
     <button type="submit" className="btn btn-primary" disabled={disabled}>
-      Submit
+      {status === "loading" ? 'Loading' : 'Submit'}
     </button>
   )
 }
@@ -39,27 +41,16 @@ export default function Login() {
     },
     resolver: yupResolver(schema)
   });
-  const { setUser } = useAuth();
+  const dispatch = useDispatch();
+  const [status, setStatus] = React.useState("idle");
 
   const onSubmit = async data => {
     const { username, password } = data;
     try {
-      const res = await request({
-        url: "/auth/login",
-        method: "POST",
-        data: { username, password },
-      });
-
-      if (res.success) {
-        const { token, username, _id } = res.data;
-        localStorage.setItem("token", token);
-        setUser({
-          _id,
-          username
-        })
-
-      }
+      setStatus("loading");
+      await dispatch(login({ username, password })).unwrap()
     } catch (err) {
+      setStatus("error");
       console.log(err);
     }
   };
@@ -98,7 +89,7 @@ export default function Login() {
               <div className="invalid-feedback">{errors.password?.message}</div>
             } 
           </div>
-          <SubmitButton control={control} errors={errors} />
+          <SubmitButton control={control} errors={errors} status={status} />
         
           <Link className="btn btn-link" to="/register">Signup</Link>
         </form>
