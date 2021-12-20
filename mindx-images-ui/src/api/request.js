@@ -4,13 +4,16 @@ const instance = axios.create({
   baseURL: process.env.REACT_APP_SERVER_API_URL
 });
 
-// instance.interceptors.request.use(config => {
-//   const token = localStorage.getItem('token');
-//   config.headers.Authorization = token ? token : '';
-//   return config;
-// }, err => {
-//   return Promise.reject(err);
-// })
+// transform mọi request trước khi gọi lên server
+// lấy token trong localstorage
+// đính vào header
+instance.interceptors.request.use(config => {
+  const token = localStorage.getItem('token');
+  config.headers.Authorization = token ? token : '';
+  return config;
+}, err => {
+  return Promise.reject(err);
+})
 
 // transform mọi response trả về => bỏ qua một lớp data của axios
 

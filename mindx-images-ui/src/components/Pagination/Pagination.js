@@ -16,7 +16,8 @@ export default function Pagination({
 
       const cls = isActive? "page-item active" : "page-item";
       const pageItem = (
-        <li 
+        <li
+          key={i}
           className={cls} 
           onClick={() => {
             if (!isActive) {
@@ -34,7 +35,7 @@ export default function Pagination({
   }
 
   return (
-    <ul class="pagination">
+    <ul className="pagination">
       {renderPageItems()}
     </ul>
   )

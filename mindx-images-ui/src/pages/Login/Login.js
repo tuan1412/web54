@@ -1,12 +1,14 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import { AuthLayout } from "../../components/Layout";
 import request from "../../api/request";
 import { useForm, useWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import useAuth from '../../hooks/useAuth';
 
 const schema = yup.object({
-  username: yup.string().email("Not email").required("Required"),
+  username: yup.string().required("Required"),
   password: yup.string().min(6).required(),
 }).required();
 
@@ -24,43 +26,20 @@ function SubmitButton({ control, errors }) {
   )
 }
 
-function InputPassword({ control, ...props}) {
-  const username = useWatch({ control, name: 'username' });
- 
-  const [show, setShow] = React.useState(false);
-
-  const isShowComp = username === 'admin@gmail.com';
-
-  if (!isShowComp) return null;
-
-  return (
-    <div>
-      <input type={show ? 'text' : 'password'} {...props} />
-      <span onClick={() => setShow(preShow => !preShow)}>Mắt</span>
-    </div>
-  )
-}
-
 export default function Login() {
   const { 
     register, 
     handleSubmit,
     control,
-    setValue,
     formState: { errors } 
   } = useForm({
     defaultValues: {
-      username: 'tuan@gmail.com',
+      username: 'tuan1',
       password: '123456'
     },
     resolver: yupResolver(schema)
   });
-
-  // React.useEffect(() => {
-  //   setTimeout(() => {
-  //     setValue('username', '5s@gmail.com');
-  //   }, 5000)
-  // }, [])
+  const { setUser } = useAuth();
 
   const onSubmit = async data => {
     const { username, password } = data;
@@ -71,7 +50,15 @@ export default function Login() {
         data: { username, password },
       });
 
-      console.log(res);
+      if (res.success) {
+        const { token, username, _id } = res.data;
+        localStorage.setItem("token", token);
+        setUser({
+          _id,
+          username
+        })
+
+      }
     } catch (err) {
       console.log(err);
     }
@@ -111,8 +98,9 @@ export default function Login() {
               <div className="invalid-feedback">{errors.password?.message}</div>
             } 
           </div>
-          <InputPassword control={control} />
           <SubmitButton control={control} errors={errors} />
+        
+          <Link className="btn btn-link" to="/register">Signup</Link>
         </form>
       </div>
     </AuthLayout>
