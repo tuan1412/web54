@@ -33,7 +33,7 @@ export const login = createAsyncThunk('user/login',
     if (res.success) {
       return res.data;
     }
-    return null;
+    throw Error('something went wrong')
   }
 )
 
@@ -57,8 +57,9 @@ export const userSlice = createSlice({
     [fetchUserInfo.rejected]: (state) => {
       state.status = "error";
     },
-    [login.fulfilled]: (state, payload) => {
-      const { token, username, _id } = payload;
+    [login.fulfilled]: (state, action) => {
+      const { token, username, _id } = action.payload;
+
       localStorage.setItem("token", token)
       state.user = {
         username,

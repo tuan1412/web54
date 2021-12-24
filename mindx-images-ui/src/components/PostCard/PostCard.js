@@ -1,5 +1,10 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Card } from "antd";
+import "./style.css";
+
+const { Meta } = Card;
+
 export default function PostCard({
   imageUrl,
   title,
@@ -8,15 +13,17 @@ export default function PostCard({
   postId,
 }) {
   return (
-    <div className="card">
-      <Link to={`/posts/${postId}`}>
-        <img className="card-img-top" src={imageUrl} alt={title} />
-      </Link>
-      <div className="card-body">
-        <div className="card-title h5">{title}</div>
-        <p className="card-text">{description}</p>
-        <p className="text-muted card-text">{createdBy}</p>
-      </div>
-    </div>
-  )
+    <Card
+      hoverable
+      style={{ width: "100%" }}
+      cover={
+        <Link to={`/posts/${postId}`}>
+          <img alt={title} src={imageUrl} />
+        </Link>
+      }
+    >
+      <Meta title={title} description={description} />
+      <div>{createdBy}</div>
+    </Card>
+  );
 }

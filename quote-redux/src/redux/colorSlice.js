@@ -14,17 +14,21 @@ const initialState = {
 }
 
 // setState(prevState => prevState)
-
+// immer.js
 export const colorSlice = createSlice({
   name: 'color',
   initialState,
   reducers: {
     setActiveColor: (state, action) => {
+      // action: type: 'color/setActiveColor'
+      // payload: newActiveColor
       const newActiveColor = action.payload;
 
       state.activeColor = newActiveColor;
     },
     resetActiveColor: () => {
+      // action: type 'color/resetActiveColor'
+      // payload: ''
       return initialState;
     }
   }

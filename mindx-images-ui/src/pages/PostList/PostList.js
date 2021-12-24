@@ -1,4 +1,5 @@
 import React from "react";
+import { Row, Col } from 'antd';
 import { MainLayout } from "../../components/Layout";
 import PostCard from "../../components/PostCard";
 import request from "../../api/request";
@@ -52,21 +53,11 @@ export default function PostList() {
   React.useEffect(() => {
     fetchPosts(currentPage);
   }, [currentPage]);
-  // lắng nghe sự thay đổi của currentPage
 
   const handleChangePage = (newPage) => {
     setCurrentPage(newPage);
   }
 
-  // React.useEffect(() => {
-  //   fetchPosts(1);
-  // }, []);
-  // // didmount
-
-  // const handleChangePage = (newPage) => {
-  //   setCurrentPage(newPage);
-  //   fetchPosts(newPage);
-  // }
 
   const renderPosts = () => {
     if (status === "error") return <div>Error</div>;
@@ -74,9 +65,9 @@ export default function PostList() {
     if (status === "idle" || status === "loading") return <div>Loading...</div>;
 
     return (
-      <div className="row">
+      <Row gutter={[16, 16]}>
         {posts.map((post) => (
-          <div className="col-md-3" key={post._id}>
+          <Col xs={{ span: 24 }} md={{ span: 6 }} key={post._id}>
             <PostCard
               postId={post._id}
               title={post.title}
@@ -84,9 +75,9 @@ export default function PostList() {
               description={post.description}
               createdBy={post.createdBy.username}
             />
-          </div>
+          </Col>
         ))}
-      </div>
+      </Row>
     );
   };
 
