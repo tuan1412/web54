@@ -1,14 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from 'react-redux';
 import useAuth from "../../hooks/useAuth";
+import { logout } from "../../redux/userSlice";
 
 export function AuthenticatedComponent({ children, fallback = null }) {
-  const { user, setUser } = useAuth();
+  const user = useAuth();
 
-  return user ? children(user, setUser) : fallback;
+  return user ? children(user) : fallback;
 }
 
 export default function Navbar() {
+  const dispatch = useDispatch();
+
   return (
     <nav className="navbar navbar-light bg-light">
       <div className="container">
@@ -28,7 +32,7 @@ export default function Navbar() {
               </div>
             }
           >
-            {(user, setUser) => (
+            {(user) => (
               <div>
                 Welcome {user.username}
                 <Link className="btn btn-link" to="/posts/create">
@@ -37,8 +41,7 @@ export default function Navbar() {
                 <button
                   className="btn"
                   onClick={() => {
-                    localStorage.removeItem("token");
-                    setUser(null);
+                    dispatch(logout());
                   }}
                 >
                   Logout

@@ -1,23 +1,19 @@
 {
-  "name": "mindx-images-ui",
+  "name": "random-quote-machine",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@hookform/resolvers": "^2.8.5",
     "@reduxjs/toolkit": "^1.7.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.24.0",
-    "bootstrap": "^5.1.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.21.2",
+    "react-feather": "^2.0.9",
     "react-redux": "^7.2.6",
-    "react-router-dom": "^6.1.1",
     "react-scripts": "4.0.3",
-    "web-vitals": "^1.0.1",
-    "yup": "^0.32.11"
+    "web-vitals": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
