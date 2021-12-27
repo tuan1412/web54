@@ -1,6 +1,8 @@
+
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
+import { message } from 'antd';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'antd/dist/antd.css';
 import Login from "./pages/Login";
@@ -10,10 +12,24 @@ import CreatePost from "./pages/CreatePost";
 import PostDetail from "./pages/PostDetail";
 import { GuestPage, PrivatePage } from './components/RulePage';
 import { fetchUserInfo } from './redux/userSlice';
+import socketClient from './socket';
 
 function App() {
   const status = useSelector(state => state.auth.status);
   const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    // socketClient.on('hello', (data) => {
+    //   message.success(data.message)
+    // })
+
+    socketClient.on('hi', (data) => {
+      console.log('vo day', data);
+      message.success(data.message)
+    })
+    
+    socketClient.emit('hi', { message: 'client say Hi' })
+  }, []);
 
   React.useEffect(() => {
     dispatch(fetchUserInfo())
