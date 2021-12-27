@@ -1,4 +1,7 @@
 import React from 'react'
+import { Pagination as AntdPagination } from 'antd';
+
+import './style.css';
 
 export default function Pagination({ 
   currentPage, 
@@ -6,37 +9,12 @@ export default function Pagination({
   handleChangePage,
   pageSize = 4 
 }) {
-  const maxPage = Math.ceil(total / pageSize);
-
-  const renderPageItems = () => {
-    const pageItems = [];
-
-    for (let i = 1; i <= maxPage; i+= 1) {
-      const isActive = i === currentPage;
-
-      const cls = isActive? "page-item active" : "page-item";
-      const pageItem = (
-        <li
-          key={i}
-          className={cls} 
-          onClick={() => {
-            if (!isActive) {
-              handleChangePage(i);
-            }
-          }}
-        >
-          <span className="page-link">{i}</span>
-        </li>
-      );
-      pageItems.push(pageItem)
-    };
-    
-    return pageItems;
-  }
-
   return (
-    <ul className="pagination">
-      {renderPageItems()}
-    </ul>
+    <AntdPagination 
+      current={currentPage} 
+      total={total} 
+      pageSize={pageSize}
+      onChange={page => handleChangePage(page)}
+    />
   )
 }

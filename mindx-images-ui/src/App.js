@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'antd/dist/antd.css';
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import PostList from "./pages/PostList";
