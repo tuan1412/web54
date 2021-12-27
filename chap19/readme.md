@@ -125,7 +125,7 @@ Room là một cơ chế đặc biệt của SocketIO để quy định tập h�
 
 Socket khi kết nối tới Server sẽ có quyền join (vào) hoặc leave(rời) một hoặc nhiều room
 
-![Room](static/Room.png)
+![Room](static/room.png)
 
 ```
 io.on("connection", (socket) => {
