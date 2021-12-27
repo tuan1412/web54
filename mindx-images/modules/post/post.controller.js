@@ -217,7 +217,7 @@ const incLikePost = async (req, res) => {
 const getCommentByPost = async (req, res) => {
   const { postId } = req.params;
 
-  const comments = await CommentModel.find({ postId });
+  const comments = await CommentModel.find({ postId }).populate('createdBy');
 
   res.send({
     success: 1,
