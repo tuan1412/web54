@@ -12,24 +12,20 @@ import CreatePost from "./pages/CreatePost";
 import PostDetail from "./pages/PostDetail";
 import { GuestPage, PrivatePage } from './components/RulePage';
 import { fetchUserInfo } from './redux/userSlice';
-import socketClient from './socket';
+// import socketClient from './socket';
+import { useListen } from './components/SocketProvider/SocketProvider';
 
 function App() {
   const status = useSelector(state => state.auth.status);
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    // socketClient.on('hello', (data) => {
-    //   message.success(data.message)
-    // })
-
-    socketClient.on('hi', (data) => {
-      console.log('vo day', data);
-      message.success(data.message)
-    })
-    
-    socketClient.emit('hi', { message: 'client say Hi' })
+  const showMessage = React.useCallback((data) => {
+    message.success(data.message)
   }, []);
+
+  // const showMessage = data => message.success()
+
+  useListen('hi', showMessage);
 
   React.useEffect(() => {
     dispatch(fetchUserInfo())

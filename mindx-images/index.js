@@ -43,6 +43,7 @@ async function main() {
   io.on("connection", (socket) => {
     console.log('socket connected', socket.id);
 
+    socket.emit('sayHi', { message: 'Server say hihi' })
 
     socket.on('hi', (data) => {
       console.log('hi', data);
