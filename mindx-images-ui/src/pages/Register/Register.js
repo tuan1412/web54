@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { register } from '../../redux/userSlice';
 
 const schema = yup
   .object({
@@ -30,17 +32,18 @@ export default function Register() {
   } = useForm({
     resolver: yupResolver(schema),
   });
+  const [status, setStatus] = React.useState('idle');
+  const dispatch = useDispatch();
+
+  const isLoading = status === 'loading';
 
   const onSubmit = async (data) => {
     const { username, password } = data;
     try {
-      // const res = await request({
-      //   url: "/auth/login",
-      //   method: "POST",
-      //   data: { username, password },
-      // });
-      // console.log(res);
+      setStatus('loading');
+      await dispatch(register({ username, password })).unwrap();
     } catch (err) {
+      setStatus('error');
       console.log(err);
     }
   };
@@ -72,7 +75,7 @@ export default function Register() {
               Password
             </label>
             <input
-              type="text"
+              type="password"
               className={`form-control ${
                 errors.password?.message ? 'is-invalid' : ''
               }`}
@@ -88,7 +91,7 @@ export default function Register() {
               Confirm password
             </label>
             <input
-              type="text"
+              type="password"
               className={`form-control ${
                 errors.confirmPassword?.message ? 'is-invalid' : ''
               }`}
