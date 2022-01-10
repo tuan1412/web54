@@ -40,6 +40,20 @@ export const login = createAsyncThunk(
   }
 );
 
+export const register = createAsyncThunk(
+  'user/register',
+  async ({ username, password }) => {
+    const res = await request({
+      url: '/auth/register',
+      method: 'POST',
+      data: { username, password },
+    });
+    if (res.success) {
+      return res.data;
+    }
+    throw Error('something went wrong');
+  }
+);
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -61,6 +75,15 @@ export const userSlice = createSlice({
       state.status = 'error';
     },
     [login.fulfilled]: (state, action) => {
+      const { token, username, _id } = action.payload;
+
+      localStorage.setItem('token', token);
+      state.user = {
+        username,
+        _id,
+      };
+    },
+    [register.fulfilled]: (state, action) => {
       const { token, username, _id } = action.payload;
 
       localStorage.setItem('token', token);
