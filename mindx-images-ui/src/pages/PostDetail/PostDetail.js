@@ -1,14 +1,14 @@
-import React from "react";
-import { Row, Col, Form, Input, Button } from "antd";
-import { useParams } from "react-router-dom";
-import request from "../../api/request";
-import PostCard from "../../components/PostCard";
-import useAuth from "../../hooks/useAuth";
-import { MainLayout } from "../../components/Layout";
+import React from 'react';
+import { Row, Col, Form, Input, Button } from 'antd';
+import { useParams } from 'react-router-dom';
+import request from '../../api/request';
+import PostCard from '../../components/PostCard';
+import useAuth from '../../hooks/useAuth';
+import { MainLayout } from '../../components/Layout';
 import {
   useListen,
   useSocket,
-} from "../../components/SocketProvider/SocketProvider";
+} from '../../components/SocketProvider/SocketProvider';
 import useAsync from '../../hooks/useAsync';
 import { fetchComments } from '../../api/comment';
 import { fetchDetailPost } from '../../api/post';
@@ -17,8 +17,13 @@ export default function PostDetail() {
   const { postId } = useParams();
   const [form] = Form.useForm();
   const { isConnected, socketRef } = useSocket();
-  const { data: commentInfo, run: runComments, isDone:isDoneComments, setData:setCommentInfo } = useAsync();
-  const { data: postInfo, run: runPost, isDone:isDonePost } = useAsync();
+  const {
+    data: commentInfo,
+    run: runComments,
+    isDone: isDoneComments,
+    setData: setCommentInfo,
+  } = useAsync();
+  const { data: postInfo, run: runPost, isDone: isDonePost } = useAsync();
 
   const user = useAuth();
 
@@ -32,18 +37,21 @@ export default function PostDetail() {
 
   React.useEffect(() => {
     if (isConnected) {
-      socketRef.emit("join-post", postId);
+      socketRef.emit('join-post', postId);
     }
   }, [postId, isConnected, socketRef]);
 
-  const addComment = React.useCallback((newComment) => {
-    setCommentInfo((preComments) => {
-      const newComments = [...preComments, newComment];
-      return newComments
-    });
-  }, [setCommentInfo]);
+  const addComment = React.useCallback(
+    (newComment) => {
+      setCommentInfo((preComments) => {
+        const newComments = [...preComments, newComment];
+        return newComments;
+      });
+    },
+    [setCommentInfo]
+  );
 
-  useListen("new-comment", addComment);
+  useListen('new-comment', addComment);
 
   return (
     <MainLayout>
@@ -63,11 +71,11 @@ export default function PostDetail() {
           {isDoneComments && (
             <div
               style={{
-                background: "#fff",
-                height: "100%",
+                background: '#fff',
+                height: '100%',
                 padding: 10,
-                display: "flex",
-                flexDirection: "column",
+                display: 'flex',
+                flexDirection: 'column',
               }}
             >
               <div style={{ flexGrow: 1 }}>
@@ -82,11 +90,11 @@ export default function PostDetail() {
                   <Form
                     form={form}
                     onFinish={async (values) => {
-                      console.log("hi");
+                      console.log('hi');
                       const { comment } = values;
                       const res = await request({
-                        url: "/comments",
-                        method: "POST",
+                        url: '/comments',
+                        method: 'POST',
                         data: {
                           postId,
                           content: comment,
@@ -107,7 +115,7 @@ export default function PostDetail() {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your username!",
+                        message: 'Please input your username!',
                       },
                     ]}
                   >

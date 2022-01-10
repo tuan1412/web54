@@ -1,10 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Layout, Menu, Dropdown } from "antd";
-import { DownOutlined } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
-import useAuth from "../../hooks/useAuth";
-import { logout } from "../../redux/userSlice";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Layout, Menu, Dropdown } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
+import useAuth from '../../hooks/useAuth';
+import { logout } from '../../redux/userSlice';
 
 const { Header } = Layout;
 
@@ -24,15 +24,15 @@ export default function Navbar() {
   );
 
   return (
-    <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
+    <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
       <div
         className="logo"
         style={{
-          float: "left",
-          width: "120px",
-          height: "31px",
-          margin: "16px 24px 16px 0",
-          background: "rgba(255, 255, 255, 0.2)",
+          float: 'left',
+          width: '120px',
+          height: '31px',
+          margin: '16px 24px 16px 0',
+          background: 'rgba(255, 255, 255, 0.2)',
         }}
       ></div>
       {!user ? (
@@ -45,8 +45,8 @@ export default function Navbar() {
           </Menu.Item>
         </Menu>
       ) : (
-        <div style={{ textAlign: "right", color: "#fff" }}>
-          <Dropdown overlay={menu} trigger={["click"]}>
+        <div style={{ textAlign: 'right', color: '#fff' }}>
+          <Dropdown overlay={menu} trigger={['click']}>
             <span>
               Welcome {user.username} <DownOutlined />
             </span>

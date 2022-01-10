@@ -1,20 +1,20 @@
-import React from 'react'
+import React from 'react';
 import { Pagination as AntdPagination } from 'antd';
 
 import './style.css';
 
-export default function Pagination({ 
-  currentPage, 
+export default function Pagination({
+  currentPage,
   total,
   handleChangePage,
-  pageSize = 4 
+  pageSize = 4,
 }) {
   return (
-    <AntdPagination 
-      current={currentPage} 
-      total={total} 
+    <AntdPagination
+      current={currentPage}
+      total={total}
       pageSize={pageSize}
-      onChange={page => handleChangePage(page)}
+      onChange={(page) => handleChangePage(page)}
     />
-  )
+  );
 }
