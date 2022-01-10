@@ -10,6 +10,7 @@ const CommentRouter = require('./modules/comment');
 const AuthRouter = require('./modules/auth');
 const UploadRouter = require('./modules/upload');
 const EventEmitter = require('events');
+const HttpError = require('./common/httpError');
 
 const ioEvent = new EventEmitter();
 
@@ -80,6 +81,10 @@ async function main() {
 
   // app.get('/', (req, res) => res.sendFile(a.html))
   // app.get('/posts', (req, res) => res.sendFile(b.html))
+
+  app.use('*', (req, res) => {
+    throw new HttpError('Not found api', 404);
+  })
 
   app.use(errorHandler);
 
