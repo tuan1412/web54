@@ -29,6 +29,8 @@ export default function PostDetail() {
 
   console.log('hi');
 
+  console.log('he');
+
   React.useEffect(() => {
     runPost(fetchDetailPost(postId));
   }, [postId, runPost]);
