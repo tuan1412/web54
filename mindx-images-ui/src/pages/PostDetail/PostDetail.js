@@ -27,6 +27,8 @@ export default function PostDetail() {
 
   const user = useAuth();
 
+  console.log('hi');
+
   React.useEffect(() => {
     runPost(fetchDetailPost(postId));
   }, [postId, runPost]);
