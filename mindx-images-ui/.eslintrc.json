@@ -1,0 +1,38 @@
+{
+  "extends": [
+    "react-app",
+    "plugin:jsx-a11y/recommended",
+    "prettier"
+  ],
+  "plugins": [
+    "jsx-a11y",
+    "eslint-plugin-prettier"
+  ],
+  "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "printWidth": 80,
+        "semi": true,
+        "trailingComma": "es5",
+        "no-mixed-spaces-and-tabs": [
+          "error",
+          "smart-tabs"
+        ],
+        "no-unused-vars": [
+          "error"
+        ]
+      }
+    ]
+  }
+}

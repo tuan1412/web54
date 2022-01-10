@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Card } from "antd";
-import "./style.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Card } from 'antd';
+import './style.css';
 
 const { Meta } = Card;
 
@@ -15,7 +15,7 @@ export default function PostCard({
   return (
     <Card
       hoverable
-      style={{ width: "100%" }}
+      style={{ width: '100%' }}
       cover={
         <Link to={`/posts/${postId}`}>
           <img alt={title} src={imageUrl} />

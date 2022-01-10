@@ -1,8 +1,8 @@
-import React from "react";
-import { Row, Col, Form, Input, Button, Upload } from "antd";
+import React from 'react';
+import { Row, Col, Form, Input, Button, Upload } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { MainLayout } from "../../components/Layout";
-import { InboxOutlined } from "@ant-design/icons";
+import { MainLayout } from '../../components/Layout';
+import { InboxOutlined } from '@ant-design/icons';
 import request from '../../api/request';
 
 const normFile = (e) => {
@@ -12,13 +12,9 @@ const normFile = (e) => {
   return e && e.fileList;
 };
 
-const customRequest = ({
-  file,
-  onError,
-  onSuccess,
-}) => {
+const customRequest = ({ file, onError, onSuccess }) => {
   const formData = new FormData();
-  formData.append("file", file);
+  formData.append('file', file);
 
   request
     .post('/upload', formData)
@@ -32,10 +28,10 @@ const customRequest = ({
       console.log('upload progress is aborted.');
     },
   };
-}
+};
 
 export default function CreatePost() {
-  const [status, setStatus] = React.useState("idle");
+  const [status, setStatus] = React.useState('idle');
   const navigate = useNavigate();
 
   const onSubmit = async (values) => {
@@ -43,25 +39,23 @@ export default function CreatePost() {
     const imageUrl = images[0].response;
 
     try {
-      setStatus("loading");
+      setStatus('loading');
       const res = await request({
         url: '/posts',
         method: 'POST',
         data: {
           title,
           description,
-          imageUrl
-        }
+          imageUrl,
+        },
       });
       if (res.success) {
-        navigate("/")
+        navigate('/');
       }
-    } catch (err) {
+    } catch (err) {}
+  };
 
-    }
-  }
-
-  const isLoading = status === "loading";
+  const isLoading = status === 'loading';
 
   return (
     <MainLayout>
@@ -75,10 +69,7 @@ export default function CreatePost() {
                 getValueFromEvent={normFile}
                 noStyle
               >
-                <Upload.Dragger 
-                  name="files" 
-                  customRequest={customRequest}
-                >
+                <Upload.Dragger name="files" customRequest={customRequest}>
                   <p className="ant-upload-drag-icon">
                     <InboxOutlined />
                   </p>

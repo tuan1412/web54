@@ -5,7 +5,7 @@ function PrivatePage() {
   const user = useAuth();
   const isMember = !!user;
 
-  return isMember ? <Outlet /> : <Navigate to="/login" />
+  return isMember ? <Outlet /> : <Navigate to="/login" />;
 }
 
 export default PrivatePage;

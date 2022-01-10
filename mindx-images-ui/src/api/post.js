@@ -1,9 +1,9 @@
-import request from "./request";
+import request from './request';
 
 export const fetchDetailPost = async (postId) => {
   const res = await request({
     url: `/posts/${postId}`,
-    method: "GET",
+    method: 'GET',
   });
 
   if (res.success) {
@@ -17,8 +17,8 @@ export const fetchPosts = async (page, pageSize) => {
   const limit = pageSize;
 
   const res = await request({
-    method: "GET",
-    url: "/posts",
+    method: 'GET',
+    url: '/posts',
     params: {
       skip,
       limit,

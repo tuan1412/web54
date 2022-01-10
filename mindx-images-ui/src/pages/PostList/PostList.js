@@ -1,12 +1,10 @@
-import React from "react";
+import React from 'react';
 import { Row, Col } from 'antd';
-import { MainLayout } from "../../components/Layout";
-import PostCard from "../../components/PostCard";
-import Pagination from '../../components/Pagination'
+import { MainLayout } from '../../components/Layout';
+import PostCard from '../../components/PostCard';
+import Pagination from '../../components/Pagination';
 import useAsync from '../../hooks/useAsync';
 import { fetchPosts } from '../../api/post';
-
-const PAGE_SIZE = 4;
 
 /*
   componentDiDMount() => fetchPosts(1)
@@ -19,19 +17,21 @@ const PAGE_SIZE = 4;
 export default function PostList() {
   const { isLoading, isIdle, data, run, isError } = useAsync({
     data: [],
-    total: 0
+    total: 0,
   });
+
+  const pageSize = 4;
+
   const [currentPage, setCurrentPage] = React.useState(1);
-  const { data:posts, total } = data
+  const { data: posts, total } = data;
 
   React.useEffect(() => {
-    run(fetchPosts(currentPage, PAGE_SIZE));
+    run(fetchPosts(currentPage, pageSize));
   }, [currentPage, run]);
 
   const handleChangePage = (newPage) => {
     setCurrentPage(newPage);
-  }
-
+  };
 
   const renderPosts = () => {
     if (isError) return <div>Error</div>;
@@ -59,8 +59,8 @@ export default function PostList() {
     <MainLayout>
       <div>{renderPosts()}</div>
       <div className="mt-4">
-        <Pagination 
-          currentPage={currentPage} 
+        <Pagination
+          currentPage={currentPage}
           total={total}
           handleChangePage={handleChangePage}
         />

@@ -3,7 +3,7 @@ import React from 'react';
 export default function useAsync(defaultState) {
   const [state, setState] = React.useState({
     status: 'idle',
-    data: typeof defaultData === 'function' ? defaultState() : defaultState
+    data: typeof defaultData === 'function' ? defaultState() : defaultState,
   });
   const isMounted = React.useRef(false);
 
@@ -12,12 +12,12 @@ export default function useAsync(defaultState) {
 
     return () => {
       isMounted.current = false;
-    }
+    };
   }, []);
-  
+
   const run = React.useCallback(async (promise) => {
     try {
-      setState(preState => ({ ...preState, status: 'loading'}));
+      setState((preState) => ({ ...preState, status: 'loading' }));
       const data = await promise;
 
       if (isMounted.current) {
@@ -26,22 +26,21 @@ export default function useAsync(defaultState) {
           data,
         });
       }
-      
     } catch {
       if (isMounted.current) {
-        setState(preState => ({ ...preState, status: 'done'}));
+        setState((preState) => ({ ...preState, status: 'done' }));
       }
     }
   }, []);
 
   const setData = (newData) => {
-    setState(preState => {
+    setState((preState) => {
       return {
         ...preState,
-        data: typeof newData === 'function' ? newData(preState.data) : newData
-      }
-    })
-  }
+        data: typeof newData === 'function' ? newData(preState.data) : newData,
+      };
+    });
+  };
 
   const isLoading = state.status === 'loading';
   const isIdle = state.status === 'idle';
@@ -56,6 +55,6 @@ export default function useAsync(defaultState) {
     status: state.status,
     data: state.data,
     setData,
-    run
-  }
+    run,
+  };
 }
